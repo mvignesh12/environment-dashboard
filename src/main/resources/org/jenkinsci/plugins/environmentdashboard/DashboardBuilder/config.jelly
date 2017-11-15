@@ -5,7 +5,7 @@
             <f:textbox />
         </f:entry>
         <f:entry title="Component name" field="componentName">
-            <f:textbox />
+            <f:textbox value="status" />
         </f:entry>
         <f:entry title="Build number" field="buildNumber">
             <f:textbox />

@@ -440,7 +440,7 @@ public class EnvDashboardView extends View {
 		for (String field : fields) {
 			allDBFields.add(field);
 		}
-		String queryString = "select top " + lastDeploy + " " + StringUtils.join(allDBFields, ", ").replace(".$", "")
+		String queryString = "select top " + lastDeploy + " " + StringUtils.join(allDBFields.iterator(), ", ").replace(".$", "")
 				+ " from env_dashboard where compName='" + comp + "' and envName='" + env
 				+ "' order by created_at desc;";
 		try {
@@ -468,7 +468,7 @@ public class EnvDashboardView extends View {
 		for (String field : fields) {
 			allDBFields.add(field);
 		}
-		String queryString = "select top 1 " + StringUtils.join(allDBFields, ", ").replace(".$", "")
+		String queryString = "select top 1 " + StringUtils.join(allDBFields.iterator(), ", ").replace(".$", "")
 				+ " from env_dashboard where envName = '" + env + "' and compName = '" + comp
 				+ "' order by created_at desc;";
 		try {
