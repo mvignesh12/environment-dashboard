@@ -16,7 +16,7 @@
         </f:entry>
 
         <f:entry title="Package Name" field="packageName">
-			<f:textbox />
+            <f:textbox />
         </f:entry>
 
         <f:nested>

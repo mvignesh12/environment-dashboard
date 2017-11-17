@@ -19,16 +19,16 @@
                     </tr>
                 </j:case>
                 <j:case value="ENVS">
-                                            					
+                                                                
                 <j:set var="orderOfEnvs" value="${it.getOrderOfEnvs()}"/>
                 <j:set var="orderOfComps" value="${it.getOrderOfComps()}"/>
                 <j:set var="customColumnsList" value="${it.getCustomDBColumns()}"/>
-				
-				<!-- Popup for each environment -->
-				<th style="border-style:hidden; background-color: white;text-decoration:none; color:black; font-size:medium;font-family:verdana;"> All Environments Status
-				<j:forEach items="${orderOfEnvs}" var="envsHeader">
-				<j:set var="comp" value="status"/>
-				<j:set var="compLastDeployed" value="${it.getCompLastDeployed(envsHeader, comp)}"/>
+                
+                <!-- Popup for each environment -->
+                <th style="border-style:hidden; background-color: white;text-decoration:none; color:black; font-size:medium;font-family:verdana;"> All Environments Status
+                <j:forEach items="${orderOfEnvs}" var="envsHeader">
+                <j:set var="comp" value="status"/>
+                <j:set var="compLastDeployed" value="${it.getCompLastDeployed(envsHeader, comp)}"/>
                                     <div id="${comp}_${envsHeader}_Popup" style="display: inline-block; position: fixed; top: 100; bottom: 100; left: 0; right: 0; width: 900px; height: 600px; position:fixed; margin: auto; padding: 10px; background-color: #FEFEFE; border: 1px solid; border-color: #DDDDDD; box-shadow: 1px 2px 1px #AAAAAA; border-radius: 15px; display:none; overflow: auto; overflow-x:hidden;">
                                         <div align="right">
                                             <b onclick="javascript:hideAll()" style="cursor: pointer">[X]</b>
@@ -36,7 +36,7 @@
                                         <h3 style="text-align: center">${comp + "   |   " + envsHeader}</h3>
                                          <table style="width=100%" class="table table-bordered table-striped table-condensed">
                                             <tbody>
-												<tr>
+                                                <tr>
                                                 <th style="width: 8%;text-align:center">Build</th>
                                                 <j:if test="${compLastDeployed.get('packageName') != null &amp;&amp; !compLastDeployed.get('packageName').equals('')}">
                                                     <th style="text-align:center">Package</th>
@@ -48,7 +48,7 @@
                                                 </j:forEach>
                                                 <th style="width:8%;text-align:center">Status</th>
                                                 <th style="text-align:center">Time</th>
-												</tr>
+                                                </tr>
                                            
                                             <j:set var="limitDeploy" value="${it.getLimitDeployHistory()}"/>
                                             <j:forEach items="${it.getDeploymentsByCompEnv(comp, envsHeader, limitDeploy)}" var="deployment">
@@ -89,37 +89,37 @@
                                                         </td>
                                                     </tr>
                                             </j:forEach>
-											</tbody>
+                                            </tbody>
                                         </table>
                                     </div>
-				</j:forEach> 
-				</th>
-				<!-- Popup End -->
-				
-				<!-- Main dashboard -->
-				<table class="table table-bordered table-striped table-condensed">
-					<tbody>
-					<tr>
-						<th style="text-align:center;font-size: small;font-family: verdana">Env</th>	
-						<th style="text-align:center;font-size: small;font-family: verdana"> Build Number </th>
-						<j:forEach items="${customColumnsList}" var="column">
+                </j:forEach> 
+                </th>
+                <!-- Popup End -->
+                
+                <!-- Main dashboard -->
+                <table class="table table-bordered table-striped table-condensed">
+                    <tbody>
+                    <tr>
+                        <th style="text-align:center;font-size: small;font-family: verdana">Env</th>    
+                        <th style="text-align:center;font-size: small;font-family: verdana"> Build Number </th>
+                        <j:forEach items="${customColumnsList}" var="column">
                            <th style="text-align:center;font-size: small;font-family: verdana">${column.substring(0, 1).toUpperCase() + column.substring(1)}</th>
                         </j:forEach>
-					</tr>
-					</tbody>
-				
-						
-					<j:forEach items="${orderOfEnvs}" var="env">
-						<tr>
-							<td align="center">
-								<strong>${env}</strong>
-							</td>
-							<j:set var="comp" value="status"/>
-							<j:set var="limitDeploy" value="5"/>
-							<j:set var="deployment" value="${it.getCompLastDeployed(env, comp)}"/>
-							<j:set var="compLastDeployed" value="${it.getCompLastDeployed(env, comp)}"/>
-							<j:set var="limitDeploy" value="${it.getLimitDeployHistory()}"/>
-							<j:if test="${!deployment.isEmpty()}">
+                    </tr>
+                    </tbody>
+                
+                        
+                    <j:forEach items="${orderOfEnvs}" var="env">
+                        <tr>
+                            <td align="center">
+                                <strong>${env}</strong>
+                            </td>
+                            <j:set var="comp" value="status"/>
+                            <j:set var="limitDeploy" value="5"/>
+                            <j:set var="deployment" value="${it.getCompLastDeployed(env, comp)}"/>
+                            <j:set var="compLastDeployed" value="${it.getCompLastDeployed(env, comp)}"/>
+                            <j:set var="limitDeploy" value="${it.getLimitDeployHistory()}"/>
+                            <j:if test="${!deployment.isEmpty()}">
                                     <j:switch on="${deployment.get('buildstatus')}">
                                         <j:case value="SUCCESS">
                                             <j:set var="bgcol" value="#DAF5DA;"/>
@@ -142,48 +142,48 @@
                                             <j:set var="extn" value="console"/>
                                         </j:default>
                                     </j:switch>
-									<td class="${clss}" style="background-color:${bgcol} padding 1.5% 1.5%;" align="center">										
-										<!-- <a title="View Deployment" style="text-decoration:none; color:blue; font-size:medium;" href="${deployment.get('jobUrl')}">${deployment.get('buildNum')}</a> -->
-										<a style="text-decoration:none; color:blue; font-size:medium;" title="View" href="javascript:toggle('${comp}_${env}_Popup');">
-										<strong>
-										<j:if test="${deployment.get('packageName').equals('') || deployment.get('packageName') == null}">${deployment.get('buildNum')}</j:if>
-										<j:switch on="${deployment.get('buildstatus')}">
-													<j:case value="SUCCESS">
+                                    <td class="${clss}" style="background-color:${bgcol} padding 1.5% 1.5%;" align="center">                                        
+                                        <!-- <a title="View Deployment" style="text-decoration:none; color:blue; font-size:medium;" href="${deployment.get('jobUrl')}">${deployment.get('buildNum')}</a> -->
+                                        <a style="text-decoration:none; color:blue; font-size:medium;" title="View" href="javascript:toggle('${comp}_${env}_Popup');">
+                                        <strong>
+                                        <j:if test="${deployment.get('packageName').equals('') || deployment.get('packageName') == null}">${deployment.get('buildNum')}</j:if>
+                                        <j:switch on="${deployment.get('buildstatus')}">
+                                                    <j:case value="SUCCESS">
                                                         <span title="SUCCESS" style="color:green;">&#10004;</span>
-													</j:case>
-													<j:case value="FAILURE">
+                                                    </j:case>
+                                                    <j:case value="FAILURE">
                                                         <span title="FAILURE" style="color:darkred;">&#x2716;</span>
-													</j:case>
-													<j:case value="RUNNING">
+                                                    </j:case>
+                                                    <j:case value="RUNNING">
                                                         <span title="RUNNING" style="color:blue;">&#9658;</span>
-													</j:case>
-													<j:default>
+                                                    </j:case>
+                                                    <j:default>
                                                         <span title="UNKNOWN" style="color:orange;">&#63;</span>
-													</j:default>
-										</j:switch>
-										</strong>
-										</a>
-										<div align="right">
+                                                    </j:default>
+                                        </j:switch>
+                                        </strong>
+                                        </a>
+                                        <div align="right">
                                             <code>
                                                 <a style="font-size:small; text-decoration:none;" title="View Deployment" href="${deployment.get('jobUrl')}${extn}">[${it.getNiceTimeStamp(deployment.get('created_at'))}]</a>
                                             </code>
                                         </div>
-									</td>
-									<j:forEach items="${it.getDeploymentsByCompEnv(comp, env, limitDeploy)}" var="deployment1">
-									<j:forEach items="${customColumnsList}" var="column">
+                                    </td>
+                                    <j:forEach items="${it.getDeploymentsByCompEnv(comp, env, limitDeploy)}" var="deployment1">
+                                    <j:forEach items="${customColumnsList}" var="column">
                                         <j:if test="${compLastDeployed.get(column.toLowerCase()) != null}">
                                             <td style="max-width:20em;word-wrap:break-word" align="center">
                                                 <j:out value="${deployment1.get(column.toLowerCase())}"/>
                                             </td>
                                         </j:if>
                                     </j:forEach>
-									<j:break/> <!-- display only the first value from custom column -->
-									</j:forEach>
-							</j:if>
-						</tr>
-					</j:forEach>
-					</table>
-					<!-- Main dashboard End-->
+                                    <j:break/> <!-- display only the first value from custom column -->
+                                    </j:forEach>
+                            </j:if>
+                        </tr>
+                    </j:forEach>
+                    </table>
+                    <!-- Main dashboard End-->
 
                     <script language="javascript">
                         function toggle(showHideDiv) {
