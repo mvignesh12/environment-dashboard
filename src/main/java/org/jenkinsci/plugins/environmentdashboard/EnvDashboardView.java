@@ -42,6 +42,8 @@ import org.kohsuke.stapler.interceptor.RequirePOST;
  */
 public class EnvDashboardView extends View {
 
+    private String title;
+    
     private String envOrder = null;
 
     private String compOrder = null;
@@ -50,11 +52,21 @@ public class EnvDashboardView extends View {
 
     @DataBoundConstructor
     public EnvDashboardView(final String name, final String envOrder, final String compOrder,
-            final String deployHistory) {
+            final String deployHistory, final String title) {
         super(name, Hudson.getInstance());
+        this.title = title;
         this.envOrder = envOrder;
         this.compOrder = compOrder;
         this.deployHistory = deployHistory;
+    }
+    
+/*     @SuppressWarnings("unused") // used in .jelly
+    public String getTitle() {
+        return isGiven(title) ? title : getDisplayName();
+    } */
+    
+    private boolean isGiven(String value) {
+        return ! (value == null || "".equals(value));
     }
 
     static {
@@ -116,6 +128,7 @@ public class EnvDashboardView extends View {
     @Extension
     public static final class DescriptorImpl extends ViewDescriptor {
 
+        private String title;
         private String envOrder;
         private String compOrder;
         private String deployHistory;
@@ -229,6 +242,7 @@ public class EnvDashboardView extends View {
 
         @Override
         public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
+            title = formData.optString("title");
             envOrder = formData.getString("envOrder");
             compOrder = formData.getString("compOrder");
             deployHistory = formData.getString("deployHistory");
@@ -517,6 +531,14 @@ public class EnvDashboardView extends View {
     public void setDeployHistory(final String deployHistory) {
         this.deployHistory = deployHistory;
     }
+    
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
+	}
 
     @Override
     public boolean contains(TopLevelItem topLevelItem) {

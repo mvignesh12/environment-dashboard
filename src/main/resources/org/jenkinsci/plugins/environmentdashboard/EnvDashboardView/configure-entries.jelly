@@ -1,6 +1,12 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
 
+  <f:section title="${%Environment Dashboard - View Settings}">
+
+    <f:entry title="${%Title}">
+        <f:textbox name="title" value="${it.title}"/>
+    </f:entry>
+  
     <f:entry title="Environment order" field="envOrder">
         <f:textbox />
     </f:entry>
@@ -12,6 +18,7 @@
     <f:entry title="Limit deploy history to last X deploys" field="deployHistory">
         <f:textbox default="10"/>
     </f:entry>
+    </f:section>
 
     <f:advanced>
 
@@ -25,5 +32,6 @@
         </f:entry>
 
     </f:advanced>
+  
 
 </j:jelly>
